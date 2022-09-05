@@ -1,0 +1,32 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "CLI Tracker Application",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dakota32Jones/Employee-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dakota32Jones/Employee-Tracker/issues"
+  },
+  "homepage": "https://github.com/Dakota32Jones/Employee-Tracker#readme",
+  "dependencies": {
+    "chalk": "^5.0.1",
+    "dotenv": "^16.0.2",
+    "inquirer": "^8.2.4",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
