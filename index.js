@@ -10,12 +10,12 @@ const connect = require("./config/dbConfig");
 
 // connecting to the database
 connection.connect((error) => {
-  console.info(chalk.blue("=".repeat(30)));
+  console.info(chalk.blue("=".repeat(50)));
   console.info(chalk.blue("Connection to database. . ."));
-  console.info(chalk.blue("=".repeat(30)));
-  console.info(chalk.blue("=".repeat(30)));
+  console.info(chalk.blue("=".repeat(50)));
+  console.info(chalk.blue("=".repeat(50)));
   console.info(chalk.blue("Connected to database. . . !"));
-  console.info(chalk.blue("=".repeat(30)));
+  console.info(chalk.blue("=".repeat(50)));
 
   console.log(chalk.blueBright.bold(figlet.textSync("Employee Tracker")));
 
@@ -123,27 +123,29 @@ const viewAllEmployees = () => {
                   ORDER BY employee.id ASC`;
   connection.query(sql, (error, response) => {
     if (error) throw error;
-    console.log(
-      chalk.red.bold(
-        `====================================================================================`
-      )
-    );
-    console.log(
-      `                              ` + chalk.green.bold(`Current Employees:`)
-    );
-    console.log(
-      chalk.magenta.bold(
-        `====================================================================================`
-      )
-    );
+    console.info(chalk.red.bold("=".repeat(50)));
+    console.log(`             ` + chalk.green.bold(`Current Employees:`));
+    console.info(chalk.magenta.bold("=".repeat(50)));
     console.table(response);
-    console.log(
-      chalk.magenta.bold(
-        `====================================================================================`
-      )
-    );
+    console.info(chalk.magenta.bold("=".repeat(50)));
     promptUser();
   });
 };
 
 // view all roles
+const viewAllRoles = () => {
+  console.info(chalk.yellow.bold("=".repeat(50)));
+  console.log(`               ` + chalk.green.bold(`Current Employee Roles:`));
+  console.info(chalk.yellow.bold("=".repeat(50)));
+  const sql = `SELECT role.id, role.title, department.department_name AS department
+                  FROM role
+                  INNER JOIN department ON role.department_id = department.id`;
+  connection.query(sql, (error, response) => {
+    if (error) throw error;
+    response.forEach((role) => {
+      console.log(role.title);
+    });
+    console.info(chalk.yellow.bold("=".repeat(50)));
+    promptUser();
+  });
+};
