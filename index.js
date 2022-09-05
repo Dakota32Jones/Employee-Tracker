@@ -1,18 +1,18 @@
 // requiring the npm modules in the file.
+const connection = require("./config/dbConfig");
 require("dotenv").config();
 const chalk = require("chalk");
-const dbConfig = require("./config/dbConfig");
 const inquirer = require("inquirer");
 const cTable = require("console.table");
 const figlet = require("figlet");
 const validate = require("./validate");
+const connect = require("./config/dbConfig");
 
 // connecting to the database
-async function main() {
+connection.connect((error) => {
   console.info(chalk.blue("=".repeat(30)));
   console.info(chalk.blue("Connection to database. . ."));
   console.info(chalk.blue("=".repeat(30)));
-  const dbConnection = await dbConfig();
   console.info(chalk.blue("=".repeat(30)));
   console.info(chalk.blue("Connected to database. . . !"));
   console.info(chalk.blue("=".repeat(30)));
@@ -20,9 +20,7 @@ async function main() {
   console.log(chalk.blueBright.bold(figlet.textSync("Employee Tracker")));
 
   promptUser();
-}
-// calling the async function to run code above
-main();
+});
 
 // prompting the user with questions/choices
 const promptUser = () => {
@@ -123,7 +121,7 @@ const viewAllEmployees = () => {
                   WHERE department.id = role.department_id 
                   AND role.id = employee.role_id
                   ORDER BY employee.id ASC`;
-  connection.promise().query(sql, (error, response) => {
+  connection.query(sql, (error, response) => {
     if (error) throw error;
     console.log(
       chalk.red.bold(
@@ -134,7 +132,7 @@ const viewAllEmployees = () => {
       `                              ` + chalk.green.bold(`Current Employees:`)
     );
     console.log(
-      chalk.cyan.bold(
+      chalk.magenta.bold(
         `====================================================================================`
       )
     );
