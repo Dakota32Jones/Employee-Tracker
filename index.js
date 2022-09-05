@@ -149,3 +149,59 @@ const viewAllRoles = () => {
     promptUser();
   });
 };
+
+// view all Departments
+
+const viewAllDepartments = () => {
+  const sql = `SELECT department.id AS id, department.department_name AS department FROM department`;
+  connection.query(sql, (error, response) => {
+    if (error) throw error;
+    console.info(chalk.yellow.bold("=".repeat(50)));
+    console.log(`          ` + chalk.green.bold(`All Departments:`));
+    console.info(chalk.yellow.bold("=".repeat(50)));
+    console.table(response);
+    console.info(chalk.yellow.bold("=".repeat(50)));
+    promptUser();
+  });
+};
+
+// view all Employees by Department
+const viewEmployeesByDepartment = () => {
+  const sql = `SELECT employee.first_name, 
+                  employee.last_name, 
+                  department.department_name AS department
+                  FROM employee 
+                  LEFT JOIN role ON employee.role_id = role.id 
+                  LEFT JOIN department ON role.department_id = department.id`;
+  connection.query(sql, (error, response) => {
+    if (error) throw error;
+    console.info(chalk.yellow.bold("=".repeat(50)));
+    console.log(`         ` + chalk.green.bold(`Employees by Department:`));
+    console.info(chalk.yellow.bold("=".repeat(50)));
+    console.table(response);
+    console.info(chalk.yellow.bold("=".repeat));
+    promptUser();
+  });
+};
+
+// view all departments by Budget
+const viewDepartmentBudget = () => {
+  console.info(chalk.yellow.bold("=".repeat(50)));
+  console.log(`         ` + chalk.green.bold(`Budget By Department:`));
+  console.info(chalk.yellow.bold("=".repeat(50)));
+  const sql = `SELECT department_id AS id, 
+                  department.department_name AS department,
+                  SUM(salary) AS budget
+                  FROM  role  
+                  INNER JOIN department ON role.department_id = department.id GROUP BY  role.department_id`;
+  connection.query(sql, (error, response) => {
+    if (error) throw error;
+    console.table(response);
+    console.info(chalk.yellow.bold("=".repeat(50)));
+    promptUser();
+  });
+};
+
+// Adding to the tables
+
+// add a new employee
