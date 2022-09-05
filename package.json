@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/Dakota32Jones/Employee-Tracker#readme",
   "dependencies": {
-    "chalk": "^5.0.1",
+    "chalk": "^4.1.2",
     "dotenv": "^16.0.2",
     "inquirer": "^8.2.4",
     "mysql2": "^2.3.3"
